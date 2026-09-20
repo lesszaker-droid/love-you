@@ -1,0 +1,234 @@
+import base64, os, textwrap
+
+image_path = "/mnt/data/61072.png"
+audio_path = "/mnt/data/creators-audio-vault-the-reason-i-can-breathe-korean-romantic-k-pop-love-ballad-592063.mp3"
+output_path = "/mnt/data/index.html"
+
+with open(image_path, "rb") as f:
+    image_b64 = base64.b64encode(f.read()).decode("ascii")
+
+with open(audio_path, "rb") as f:
+    audio_b64 = base64.b64encode(f.read()).decode("ascii")
+
+html = r'''<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#13000b">
+<title>RIFQI ❤️ ONA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Georgia,"Times New Roman",serif;background:#080207;color:#fff;overflow-x:hidden}
+section{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:55px 18px;position:relative;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 50% 20%,#55102f 0,#190611 42%,#050104 100%)}
+.glow{position:fixed;width:280px;height:280px;border-radius:50%;background:#ff397d;filter:blur(110px);opacity:.13;z-index:-1;top:8%;left:50%;transform:translateX(-50%)}
+.opening{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle,#5d1236 0,#17040e 50%,#040103 100%);display:flex;align-items:center;justify-content:center;text-align:center;transition:1s}
+.opening.hide{opacity:0;pointer-events:none}
+.intro{padding:25px}.small{font:12px Arial,sans-serif;letter-spacing:5px;opacity:.7}.intro h1{font:48px Arial,sans-serif;font-weight:900;margin:15px 0}.intro h1 span{color:#ff5790}.intro p{font:15px Arial,sans-serif;color:#ffdce8;margin-bottom:34px}
+.envelope{width:220px;height:145px;margin:0 auto 25px;position:relative;cursor:pointer}
+.env{position:absolute;inset:0;border-radius:10px;background:linear-gradient(135deg,#ff568d,#97003f);box-shadow:0 20px 70px #ff176d55}
+.flap{position:absolute;left:0;top:0;width:0;height:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:78px solid #ff79a7;transform-origin:top;transition:.9s;z-index:3}
+.envelope.open .flap{transform:rotateX(180deg)}
+.seal{position:absolute;z-index:5;left:50%;top:54%;transform:translate(-50%,-50%);font-size:42px;animation:pulse 1.3s infinite}
+.envelope.open .seal{opacity:0}
+.tap{font:12px Arial,sans-serif;letter-spacing:2px;border:1px solid #ffffff44;padding:12px 22px;border-radius:30px;background:#ffffff0d}
+.content{width:100%;max-width:520px;text-align:center;position:relative;z-index:2}
+.hero .tag{font:12px Arial,sans-serif;letter-spacing:5px;color:#ff8db2}
+.hero h2{font:54px Arial,sans-serif;font-weight:900;line-height:1;margin:18px 0}.hero h2 span{display:block;color:#ff4f89;text-shadow:0 0 30px #ff2d7555}
+.hero p{font:16px Arial,sans-serif;line-height:1.8;color:#ffe0eb}
+.scroll{font:11px Arial,sans-serif;letter-spacing:3px;opacity:.55;margin-top:40px}
+.card{background:#ffffff0b;border:1px solid #ffffff18;border-radius:28px;padding:28px 22px;backdrop-filter:blur(14px);box-shadow:0 20px 70px #0008}
+.photo{width:285px;height:380px;margin:0 auto 28px;padding:7px;border-radius:25px;background:linear-gradient(135deg,#ff9bbb,#ff246f,#720036);box-shadow:0 25px 80px #ff176d33;transform:rotate(-2deg)}
+.photo img{width:100%;height:100%;object-fit:cover;border-radius:19px;display:block}
+.card h3{font:700 28px Arial,sans-serif;margin-bottom:15px}.text{font:16px Arial,sans-serif;line-height:1.9;color:#ffe2ec}
+.anniv{margin-top:22px;padding:16px;border-radius:18px;background:#ff4f8912;border:1px solid #ff7ba833;font-family:Arial,sans-serif}
+.anniv b{display:block;color:#ff91b4;margin-bottom:7px}
+.counter{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:18px}
+.unit{background:#ffffff0a;border-radius:15px;padding:13px 5px;font-family:Arial,sans-serif}.unit strong{display:block;font-size:21px}.unit span{font-size:9px;opacity:.65}
+.letter-btn,.music-btn,.final-btn{border:0;border-radius:50px;padding:15px 25px;font:bold 14px Arial,sans-serif;cursor:pointer;color:white;background:linear-gradient(135deg,#ff4f8a,#bc0054);box-shadow:0 12px 35px #ff176d33;margin-top:20px}
+.letter{display:none;margin-top:20px;text-align:left}.letter.show{display:block;animation:appear .8s}.letter p{font:15px Arial,sans-serif;line-height:1.9;color:#ffe3ed}
+.music-disc{width:105px;height:105px;border-radius:50%;margin:0 auto 20px;background:radial-gradient(circle,#111 0 9%,#ff528d 10% 18%,#24000f 19% 100%);border:5px solid #ff6a9b;animation:spin 5s linear infinite;animation-play-state:paused}.music-disc.play{animation-play-state:running}
+.final h2{font:700 42px Arial,sans-serif}.final p{font:16px Arial,sans-serif;line-height:1.9;color:#ffe0eb;margin-top:18px}
+.heart{position:fixed;bottom:-40px;z-index:50;pointer-events:none;animation:rise linear forwards}
+.spark{position:fixed;width:5px;height:5px;border-radius:50%;background:white;z-index:100;pointer-events:none;animation:spark .8s forwards}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.14)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes rise{to{transform:translateY(-110svh) rotate(30deg) scale(1.3);opacity:0}}@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:380px){.hero h2{font-size:45px}.photo{width:250px;height:335px}.counter{gap:4px}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="glow"></div>
+
+<div class="opening" id="opening">
+  <div class="intro">
+    <div class="small">A LITTLE SURPRISE</div>
+    <h1>Untuk <span>ONA</span> ❤️</h1>
+    <p>Dari RIFQI, untuk seseorang yang selalu ada di hati.</p>
+    <div class="envelope" id="env" onclick="openGift()">
+      <div class="env"></div><div class="flap"></div><div class="seal">❤️</div>
+    </div>
+    <div class="tap">TAP AMPLONNYA</div>
+  </div>
+</div>
+
+<main id="main">
+<section class="hero">
+ <div class="content">
+  <div class="tag">RIFQI ❤️ ONA</div>
+  <h2>Hai,<span>Sayangku.</span></h2>
+  <p>Ada satu hadiah kecil yang aku buat khusus untuk kamu.<br>Scroll pelan-pelan ya... ❤️</p>
+  <div class="scroll">↓ SCROLL ↓</div>
+ </div>
+</section>
+
+<section>
+ <div class="content">
+  <div class="photo"><img src="data:image/png;base64,''' + image_b64 + r'''" alt="RIFQI dan ONA"></div>
+  <div class="card">
+   <h3>Untuk Kamu ❤️</h3>
+   <div class="text">Dari sekian banyak cerita yang bisa terjadi dalam hidup, aku bersyukur salah satunya mempertemukan aku dengan kamu.</div>
+   <div class="anniv"><b>📅 TANGGAL JADIAN</b><span id="annivText">BELUM DIISI</span></div>
+   <div class="counter">
+    <div class="unit"><strong id="days">0</strong><span>HARI</span></div>
+    <div class="unit"><strong id="hours">0</strong><span>JAM</span></div>
+    <div class="unit"><strong id="mins">0</strong><span>MENIT</span></div>
+    <div class="unit"><strong id="secs">0</strong><span>DETIK</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="content">
+  <div class="card">
+   <div style="font-size:42px">💌</div>
+   <h3>Surat Untuk ONA</h3>
+   <div class="text">Ada sesuatu yang belum selesai aku katakan...</div>
+   <button class="letter-btn" onclick="openLetter()">💌 BUKA SURAT</button>
+   <div class="letter" id="letter">
+    <p><b>SAYANGGKUHHH ❤️</b></p>
+    <p>MAAAF YAA HARUS LDR SYANGG 🥺</p>
+    <p>Walaupun sekarang kita harus berjauhan, aku mau kamu tahu kalau jarak tidak mengurangi rasa sayangku sedikit pun.</p>
+    <p>Aku kangen kamu. Kangen ngobrol sama kamu, ketemu kamu, dan membuat kenangan baru bareng kamu.</p>
+    <p>Semoga jarak ini cuma sementara. Sampai nanti kita bisa bertemu lagi, aku akan tetap menjaga rasa ini.</p>
+    <p><b>Aku sayang kamu. Hari ini, besok, dan seterusnya. ❤️</b></p>
+    <p style="text-align:center;font-size:28px">RIFQI ❤️ ONA</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="content">
+  <div class="card">
+   <div class="music-disc" id="disc"></div>
+   <h3>Lagu Untuk Kamu 🎵</h3>
+   <div class="text">Putar lagu ini sambil membaca suratnya.</div>
+   <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶ PUTAR LAGU</button>
+   <audio id="music" preload="auto">
+    <source src="data:audio/mpeg;base64,''' + audio_b64 + r'''" type="audio/mpeg">
+   </audio>
+  </div>
+ </div>
+</section>
+
+<section class="final">
+ <div class="content">
+  <div style="font-size:60px">❤️</div>
+  <h2>Untuk ONA</h2>
+  <p>Sejauh apa pun jaraknya,<br>hati aku tetap pulang ke kamu.</p>
+  <button class="final-btn" onclick="love()">AKU SAYANG KAMU ❤️</button>
+ </div>
+</section>
+</main>
+
+<script>
+/* ==========================================
+   ISI TANGGAL JADIAN DI SINI
+   Contoh: "2025-02-14"
+   ========================================== */
+const ANNIVERSARY = "";
+
+function openGift(){
+  document.getElementById("env").classList.add("open");
+  setTimeout(()=>{
+    document.getElementById("opening").classList.add("hide");
+    document.getElementById("main").style.display="block";
+    startHearts();
+  },900);
+}
+
+function openLetter(){
+  document.getElementById("letter").classList.toggle("show");
+  if(document.getElementById("letter").classList.contains("show")){
+    document.querySelector(".letter-btn").innerHTML="💖 TUTUP SURAT";
+  }else{
+    document.querySelector(".letter-btn").innerHTML="💌 BUKA SURAT";
+  }
+}
+
+const music=document.getElementById("music");
+let playing=false;
+function toggleMusic(){
+  const btn=document.getElementById("musicBtn"), disc=document.getElementById("disc");
+  if(!playing){
+    music.play().then(()=>{
+      playing=true; btn.innerHTML="❚❚ PAUSE LAGU"; disc.classList.add("play");
+    }).catch(()=>alert("Browser memblokir audio. Tekan tombol sekali lagi untuk memutar."));
+  }else{
+    music.pause(); playing=false; btn.innerHTML="▶ PUTAR LAGU"; disc.classList.remove("play");
+  }
+}
+
+function updateCounter(){
+  if(!ANNIVERSARY){
+    document.getElementById("annivText").textContent="Isi tanggal jadian di kode: const ANNIVERSARY";
+    return;
+  }
+  const start=new Date(ANNIVERSARY+"T00:00:00").getTime();
+  const now=Date.now();
+  let d=Math.max(0,now-start);
+  const days=Math.floor(d/86400000); d%=86400000;
+  const hours=Math.floor(d/3600000); d%=3600000;
+  const mins=Math.floor(d/60000); d%=60000;
+  const secs=Math.floor(d/1000);
+  document.getElementById("days").textContent=days;
+  document.getElementById("hours").textContent=hours;
+  document.getElementById("mins").textContent=mins;
+  document.getElementById("secs").textContent=secs;
+  const dt=new Date(ANNIVERSARY+"T00:00:00");
+  document.getElementById("annivText").textContent=dt.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+}
+updateCounter(); setInterval(updateCounter,1000);
+
+function createHeart(){
+  const h=document.createElement("div"); h.className="heart";
+  h.textContent=["❤️","💖","💕","💗","💓","💞"][Math.floor(Math.random()*6)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*22)+"px";
+  h.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(h); setTimeout(()=>h.remove(),10000);
+}
+function startHearts(){setInterval(createHeart,700)}
+function love(){for(let i=0;i<35;i++)setTimeout(createHeart,i*60);}
+
+document.addEventListener("click",e=>{
+  for(let i=0;i<6;i++){
+    const s=document.createElement("div"); s.className="spark";
+    s.style.left=e.clientX+"px"; s.style.top=e.clientY+"px";
+    s.style.setProperty("--x",(Math.random()*100-50)+"px");
+    s.style.setProperty("--y",(Math.random()*100-50)+"px");
+    document.body.appendChild(s); setTimeout(()=>s.remove(),800);
+  }
+});
+</script>
+</body>
+</html>'''
+
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(html)
+
+size_mb = os.path.getsize(output_path)/1024/1024
+print(f"File berhasil dibuat: {output_path}")
+print(f"Ukuran: {size_mb:.1f} MB")
